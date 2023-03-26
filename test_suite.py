@@ -20,9 +20,13 @@ SPI_DEVICE = 0
 mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 for i in range(50):
-    print(mcp.read_adc(0))
+    reading = mcp.read_adc(0)
+    print(reading)
+    if(reading  > 450):
+        print("bright")
+    else:
+        print("dark")
     time.sleep(0.1)
-    #print(i)
 
 cnt = 0
 
@@ -39,6 +43,8 @@ for x in range(50):
     print(reading)
     if ( reading > 300 ):
         GPIO.output(17,1)
+        time.sleep(0.1)
+        GPIO.output(17,0)
     else:
         GPIO.output(17,0)
 
